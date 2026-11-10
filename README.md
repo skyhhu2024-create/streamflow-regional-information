@@ -1,46 +1,42 @@
-# Streamflow regional information — code release 0.2.0
+# Streamflow regional information
 
 Code and reproducible cases for **Global data availability does not make nearby streamflow gauges dispensable**.
 
-## Download the complete source tree
+## Download
 
-[Download streamflow-regional-information v0.2.0](streamflow-regional-information_v0.2.0.zip).
+[Download the complete source package](streamflow-regional-information.zip). Extract it before running the commands below. The ZIP preserves the directory tree and contains 236 files, including 214 Python modules and package initializers. The checksum is in [SHA256SUMS.txt](SHA256SUMS.txt).
 
-The checked source tree is distributed as a ZIP to preserve its nested directory structure. Extract it before following the commands below. The archive contains **182 files**, including **142 archived calculation sources**, the portable numerical core, synthetic and registered observational-case examples, tests, and English/Chinese reproduction guides. It is aligned to the audited manuscript and supplement dated 8 November 2026.
+## Functional organization
+
+The calculation workflows are organized by purpose in `workflows/`:
+
+- `archive_diagnosis`: missing records and reference support
+- `benchmarks`: matched information and reconstruction comparisons
+- `regional_dependence`: global reference pools, withdrawal and seasonal controls
+- `rainfall`: precipitation inputs and complementarity
+- `monitoring`: added observations and location experiments
+- `validation`: identities, genuine gaps and retrieved observations
+- `water_resources`: low-flow timing, deficits and interval water volume
+- `shared`: common data, model and evaluation utilities
+
+The reusable numerical core is in `src/streamflow_info/`; runnable cases are in `examples/`, checks in `tests/`, and English reproduction instructions in `docs/`. The package includes an English and Chinese README.
 
 ## Quick start
 
-1. Download and extract the ZIP.
-2. Open a terminal in the extracted `streamflow-regional-information` directory.
-3. Run:
+From the extracted `streamflow-regional-information` directory:
 
-```bash
+```sh
 python -m pip install -e .
 python -m unittest discover -s tests -v
 python examples/run_synthetic_case.py --output-dir outputs/synthetic_case
 ```
 
-Python 3.10 or later is required. The synthetic case needs no provider data or credentials. For the exact study contracts, read the extracted `README.md`, `docs/REPRODUCTION.md`, `docs/MANUSCRIPT_ALIGNMENT.md`, and `docs/EXPERIMENT_MAP.csv`.
+Python 3.10 or later is required. The synthetic case needs no provider observations. The registered Paraná / Posadas case accepts an explicit JSON input configuration; see `examples/README.md`. Full study inputs and entry points are documented in `docs/REPRODUCTION.md` and `docs/EXPERIMENT_MAP.csv`.
 
-## What is included
+## Checks
 
-- Archive gaps and reference-support diagnosis.
-- Controlled information and reconstruction-system comparisons.
-- Global reference selection, regional-source withdrawal, and reference history/gap agreement.
-- Rainfall complementarity and observation-location experiments.
-- Low-flow timing, cumulative deficits, total interval water volume, and paired uncertainty summaries.
-- Supplementary genuine-gap evaluation and a registered river-case exporter.
+All 37 portable tests passed. The registered observational case reproduced 15 input arrays and 25 output arrays exactly, including 2,880 predictions. A separate core comparison found 1,860 exactly matching array/scalar outputs across 12 synthetic conditions. Source imports, functional paths and documentation links were checked. Detailed scope is recorded in `docs/VERIFICATION.md` inside the package.
 
-The release includes code and case configurations, not GSIM, GRDC, ERA5 or other provider observation arrays. Full global reproduction additionally needs the original frozen study inputs, identity decisions and registrations described in the archive. A current data download alone does not recreate that snapshot.
-
-## Verification
-
-On 10 November 2026, all **33 tests** passed. The registered Paraná / Posadas case reproduced **16 arrays exactly, including 2,880 predictions**. All 142 archived source checksums and syntax checks passed. 
-
-The ZIP SHA-256 is listed in [SHA256SUMS.txt](SHA256SUMS.txt). Data-free verification receipts and source hashes are included inside the archive.
-
-## Licence and citation
-
-No open-source licence has yet been assigned. Dataset access and use remain governed by their providers. A final paper citation and software DOI can be added when available.
+Provider observations are not included. Data access remains governed by GSIM, GRDC, ERA5 and Caravan terms. No open-source licence or software DOI has yet been assigned.
 
 [中文说明](README_zh.md)

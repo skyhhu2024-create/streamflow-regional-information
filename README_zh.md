@@ -1,15 +1,36 @@
-# 全球径流区域观测信息：代码与复现案例
+# 全球径流区域信息：计算与复现代码
 
-本仓库保存论文 **Global data availability does not make nearby streamflow gauges dispensable** 的 **v0.2.0** 代码发布包，对应2026年11月8日核对后的正文与SI。
+[下载完整代码包](streamflow-regional-information.zip)，解压后使用。代码按功能组织，包含 236 个文件；文件校验值见 [SHA256SUMS.txt](SHA256SUMS.txt)。
 
-## 下载和使用
+## 目录
 
-下载[完整代码包](streamflow-regional-information_v0.2.0.zip)，解压后进入 `streamflow-regional-information` 文件夹，再按其中英文 `README.md` 或中文 `README_zh.md` 操作。完整目录保存在ZIP中，不要直接在本仓库首页目录运行安装命令。
+| 目录 | 内容 |
+|---|---|
+| `workflows/archive_diagnosis` | 缺失结构、参考支撑与规则敏感性 |
+| `workflows/benchmarks` | 信息输入、算法对照、参考站筛选 |
+| `workflows/regional_dependence` | 全球参考池、区域撤源、季节信息 |
+| `workflows/rainfall` | 降雨准备、联合输入与观测背景 |
+| `workflows/monitoring` | 新增观测、共同历史和位置试验 |
+| `workflows/validation` | 站点身份、真实缺口与外部资料核验 |
+| `workflows/water_resources` | 低流时序、累计亏缺与区间水量 |
+| `workflows/shared` | 共用数据、模型和评价工具 |
+| `src/streamflow_info` | 可独立调用的数值核心 |
+| `examples`、`tests`、`docs` | 案例、测试和英文复现说明 |
 
-包内共有 **182个文件**，包括 **142个归档计算源文件**、便携计算核心、合成案例、真实河流案例提取工具、测试、中英文说明和正文—SI—计算入口对应表。包含信息筛选、区域参考撤除、降雨补充、观测位置以及水资源后果等计算。
+## 使用
 
-33项测试已通过。Paraná / Posadas真实案例的16个数组与冻结结果完全一致，包括2,880个预测值。
+进入解压后的 `streamflow-regional-information` 文件夹：
 
-原始GSIM、GRDC、ERA5观测不随代码分发。合成案例可直接运行；真实案例及完整全球实验需要按 `docs/REPRODUCTION.md` 准备原始数据和冻结输入。校验值见[SHA256SUMS.txt](SHA256SUMS.txt)。
+```sh
+python -m pip install -e .
+python -m unittest discover -s tests -v
+python examples/run_synthetic_case.py --output-dir outputs/synthetic_case
+```
 
-详细英文导航见[README](README.md)。当前尚未指定开源许可证。
+合成案例不需要观测数据。Paraná / Posadas 注册案例通过 JSON 明确指定输入文件，详见包内 `examples/README.md`。完整计算需要包内复现说明所列的数据和登记文件；观测数据未随代码分发。
+
+## 核查
+
+37项测试通过。真实案例15个输入数组、25个输出数组完全一致，其中包括2,880个预测值；另外12种合成工况共1,860项核心输出精确一致。代码内部调用、路径和文档链接已检查。
+
+[English README](README.md)
