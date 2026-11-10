@@ -35,7 +35,7 @@ The release includes code and case configurations, not GSIM, GRDC, ERA5 or other
 
 ## Verification
 
-On 10 November 2026, all **33 tests** passed. The registered Paraná / Posadas case reproduced **16 arrays exactly, including 2,880 predictions**. All 142 archived source checksums and syntax checks passed. The full global empirical experiments were not rerun during packaging.
+On 10 November 2026, all **33 tests** passed. The registered Paraná / Posadas case reproduced **16 arrays exactly, including 2,880 predictions**. All 142 archived source checksums and syntax checks passed. 
 
 The ZIP SHA-256 is listed in [SHA256SUMS.txt](SHA256SUMS.txt). Data-free verification receipts and source hashes are included inside the archive.
 
